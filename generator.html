@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>مولّد مشروع أستاذي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Cairo',sans-serif;background:#0f172a;color:#e2e8f0;padding:20px;min-height:100vh}
+    h1{text-align:center;color:#f0c75e;font-size:1.8rem;margin-bottom:6px}
+    .sub{text-align:center;color:#94a3b8;font-size:.9rem;margin-bottom:28px}
+    .actions{display:flex;justify-content:center;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+    .btn{
+      background:#1e293b;color:#f0c75e;border:1px solid #f0c75e;padding:10px 22px;
+      border-radius:30px;font-weight:700;cursor:pointer;transition:.2s;font-family:'Cairo',sans-serif;
+      display:flex;align-items:center;gap:8px;
+    }
+    .btn:hover{background:#f0c75e;color:#0f172a}
+    .btn-primary{background:#e94560;color:#fff;border-color:#e94560}
+    .btn-primary:hover{background:#c53030}
+    .file-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:30px}
+    .file-card{
+      background:#1e293b;border-radius:14px;padding:16px;text-align:center;
+      cursor:pointer;transition:.2s;border:1px solid transparent;
+    }
+    .file-card:hover{border-color:#f0c75e;transform:translateY(-4px)}
+    .file-card i{font-size:1.8rem;color:#f0c75e;margin-bottom:8px;display:block}
+    .file-card .name{font-weight:700;font-size:.9rem}
+    .code-section{background:#1e293b;border-radius:16px;padding:20px;margin-top:20px;display:none}
+    .code-section.active{display:block}
+    .code-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .code-header h3{color:#f0c75e}
+    .copy-btn{
+      background:#334155;color:#e2e8f0;border:none;padding:6px 16px;border-radius:20px;
+      cursor:pointer;font-family:'Cairo',sans-serif;display:flex;align-items:center;gap:6px;
+    }
+    .copy-btn:hover{background:#475569}
+    .code-box{
+      background:#0f172a;border:1px solid #334155;border-radius:12px;padding:16px;
+      overflow-x:auto;max-height:400px;overflow-y:auto;direction:ltr;text-align:left;
+      font-family:monospace;font-size:.85rem;white-space:pre-wrap;word-break:break-all;
+    }
+    .note{background:#1e293b;border-right:3px solid #e94560;padding:14px;border-radius:10px;margin-top:20px;color:#94a3b8;font-size:.85rem;line-height:1.7}
+  </style>
+</head>
+<body>
+
+<h1>📦 مولّد مشروع أستاذي</h1>
+<p class="sub">اضغط على أي ملف لمشاهدة الكود ونسخه • أو حمّل المشروع كاملاً</p>
+
+<div class="actions">
+  <button class="btn btn-primary" onclick="downloadAll()"><i class="fas fa-download"></i> تحميل ZIP كامل</button>
+  <button class="btn" onclick="showAll()"><i class="fas fa-list"></i> عرض كل الملفات</button>
+</div>
+
+<div class="file-grid" id="fileGrid"></div>
+
+<div class="code-section" id="codeSection">
+  <div class="code-header">
+    <h3 id="codeTitle">اختر ملفاً</h3>
+    <button class="copy-btn" onclick="copyCode()"><i class="fas fa-copy"></i> نسخ الكود</button>
+  </div>
+  <div class="code-box" id="codeBox"></div>
+</div>
+
+<div class="note">
+  💡 <strong>بعد تحميل ZIP أو نسخ الملفات:</strong><br>
+  1. أنشئ مستودعاً جديداً على GitHub (اسمه مثلاً ostadhi-platform).<br>
+  2. ارفع الملفات كما هي (حافظ على المجلدات css و js).<br>
+  3. اربط المستودع بـ Vercel وانشر بضغطة واحدة.<br>
+  4. املأ بيانات Firebase في js/firebase-config.js.
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+<script>
+// ======================= جميع ملفات مشروع أستاذي =======================
+const projectFiles = [
+  {
+    path: "index.html",
+    content: `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>أستاذي | المنصة الجزائرية للدروس الخصوصية</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="navbar container">
+    <div class="logo">🎓 أستاذي</div>
+    <nav class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="search.html">الأساتذة</a>
+      <a href="login.html" class="btn-o">دخول</a>
+      <a href="register.html" class="btn">سجّل مجاناً</a>
+    </nav>
+  </header>
+  <section class="hero">
+    <h1>جد أستاذك <span style="color:var(--gold);">المثالي</span></h1>
+    <p>منصة تربط التلاميذ بأفضل الأساتذة الخصوصيين في 48 ولاية جزائرية</p>
+    <div class="search-bar">
+      <input type="text" id="heroSearch" placeholder="مادة أو ولاية...">
+      <button onclick="location.href='search.html?q='+document.getElementById('heroSearch').value">بحث</button>
+    </div>
+  </section>
+  <div class="container">
+    <div class="stats">
+      <div class="stat-box"><div class="num">+500</div><div class="lbl">أستاذ موثوق</div></div>
+      <div class="stat-box"><div class="num">+3000</div><div class="lbl">تلميذ ناجح</div></div>
+      <div class="stat-box"><div class="num">48</div><div class="lbl">ولاية</div></div>
+    </div>
+    <h2 style="text-align:center;margin-bottom:24px;">🎯 أساتذة مميزون</h2>
+    <div class="cards" id="featuredTeachers"></div>
+  </div>
+  <footer style="background:var(--primary);color:#ccc;text-align:center;padding:30px;margin-top:60px">
+    © 2025 أستاذي. جميع الحقوق محفوظة.
+  </footer>
+  <script type="module">
+    import { db } from './js/firebase-config.js';
+    import { collection, getDocs, query, limit } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    async function loadFeatured() {
+      const q = query(collection(db, "professors"), limit(6));
+      const snap = await getDocs(q);
+      const grid = document.getElementById('featuredTeachers');
+      snap.forEach(doc => {
+        const d = doc.data();
+        grid.innerHTML += \`<div class="card"><div class="card-img">👨‍🏫</div><div class="card-body"><h3>\${d.name||'أستاذ'}</h3><div class="subject">\${(d.subjects||[]).join(' · ')}</div><div class="stars">⭐ \${d.rating||5.0}</div><div class="price">\${d.price||0} دج/حصة</div><div class="card-footer"><a href="teacher.html?id=\${doc.id}" class="btn-sm">عرض</a></div></div></div>\`;
+      });
+    }
+    loadFeatured();
+  </script>
+</body>
+</html>`
+  },
+  {
+    path: "login.html",
+    content: `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>دخول | أستاذي</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+  <div class="auth-box">
+    <h2>🔑 تسجيل الدخول</h2>
+    <input type="email" id="email" placeholder="البريد الإلكتروني">
+    <input type="password" id="password" placeholder="كلمة المرور">
+    <button onclick="handleLogin()">دخول</button>
+    <a href="register.html">ليس لديك حساب؟ سجّل الآن</a>
+    <div id="error" style="color:red;text-align:center"></div>
+  </div>
+  <script type="module">
+    import { login } from './js/auth.js';
+    window.handleLogin = async () => {
+      try {
+        await login(document.getElementById('email').value, document.getElementById('password').value);
+      } catch(e) { document.getElementById('error').textContent = e.message; }
+    };
+  </script>
+</body>
+</html>`
+  },
+  {
+    path: "register.html",
+    content: `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>تسجيل | أستاذي</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+  <div class="auth-box">
+    <h2>📝 إنشاء حساب</h2>
+    <input type="text" id="name" placeholder="الاسم الكامل">
+    <input type="email" id="email" placeholder="البريد الإلكتروني">
+    <input type="password" id="password" placeholder="كلمة المرور">
+    <select id="role"><option value="eleve">تلميذ</option><option value="prof">أستاذ</option></select>
+    <select id="wilaya">
+      <option>الجزائر</option><option>وهران</option><option>قسنطينة</option><option>عنابة</option>
+    </select>
+    <button onclick="handleRegister()">إنشاء الحساب</button>
+    <a href="login.html">لديك حساب؟ دخول</a>
+    <div id="error" style="color:red;text-align:center"></div>
+  </div>
+  <script type="module">
+    import { register } from './js/auth.js';
+    window.handleRegister = async () => {
+      try {
+        await register(
+          document.getElementById('email').value,
+          document.getElementById('password').value,
+          document.getElementById('role').value,
+          { name: document.getElementById('name').value, wilaya: document.getElementById('wilaya').value }
+        );
+      } catch(e) { document.getElementById('error').textContent = e.message; }
+    };
+  </script>
+</body>
+</html>`
+  },
+  {
+    path: "css/style.css",
+    content: `*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Cairo',sans-serif;background:#f8fafc;color:#1a202c;line-height:1.7;transition:0.3s}
+:root{
+  --primary:#1e3a5f;--primary-dark:#0f2a45;--accent:#e94560;--gold:#f0c75e;
+  --bg:#f8fafc;--surface:#fff;--text:#1a202c;--text2:#4a5568;--border:#e2e8f0;
+}
+.container{max-width:1200px;margin:auto;padding:0 20px}
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:16px 0;position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.85);backdrop-filter:blur(15px);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:15px}
+.logo{font-size:1.7rem;font-weight:900;color:var(--primary);display:flex;align-items:center;gap:8px}
+.nav-links{display:flex;gap:18px;align-items:center}
+.nav-links a{text-decoration:none;color:var(--text2);font-weight:600;transition:0.2s}
+.nav-links a:hover{color:var(--accent)}
+.btn-o{border:2px solid var(--accent);color:var(--accent);padding:6px 18px;border-radius:30px;font-weight:700}
+.btn-o:hover{background:var(--accent);color:#fff}
+.btn{background:var(--accent);color:#fff;padding:8px 22px;border-radius:30px;font-weight:700;border:none;cursor:pointer}
+.btn:hover{background:#c53030}
+.hero{background:linear-gradient(135deg,var(--primary),#2c5282);color:#fff;text-align:center;padding:80px 20px;border-radius:0 0 50px 50px;margin-bottom:40px}
+.hero h1{font-size:2.8rem;font-weight:900}
+.hero p{opacity:0.9;max-width:600px;margin:20px auto 25px}
+.search-bar{display:flex;max-width:500px;margin:0 auto;background:#fff;border-radius:50px;overflow:hidden}
+.search-bar input{flex:1;padding:14px 18px;border:none;outline:none;font-family:inherit}
+.search-bar button{background:var(--accent);color:#fff;border:none;padding:0 25px;font-weight:700;cursor:pointer}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:-30px 0 50px}
+.stat-box{background:var(--surface);padding:25px;text-align:center;border-radius:20px;box-shadow:0 8px 25px rgba(0,0,0,0.05)}
+.stat-box .num{font-size:2.3rem;font-weight:900;color:var(--accent)}
+.stat-box .lbl{color:var(--text2)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:24px;margin:30px 0}
+.card{background:var(--surface);border-radius:20px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,0.06);transition:transform 0.2s}
+.card:hover{transform:translateY(-6px)}
+.card-img{height:180px;background:linear-gradient(145deg,var(--primary),#2c5282);display:flex;align-items:center;justify-content:center;font-size:3.5rem;color:#fff}
+.card-body{padding:20px}
+.card-body h3{font-weight:800}
+.subject{color:var(--accent);font-weight:700;margin:4px 0}
+.stars{color:#f59e0b}
+.price{font-weight:800;color:var(--primary);font-size:1.2rem}
+.card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.btn-sm{background:var(--accent);color:#fff;padding:6px 18px;border-radius:25px;text-decoration:none;font-weight:600}
+.auth-page{background:var(--primary);min-height:100vh;display:flex;align-items:center;justify-content:center}
+.auth-box{background:#fff;padding:30px;border-radius:24px;width:100%;max-width:380px;display:flex;flex-direction:column;gap:14px}
+.auth-box h2{text-align:center;color:var(--primary)}
+.auth-box input,.auth-box select{padding:12px;border:1px solid var(--border);border-radius:12px;font-family:inherit}
+.auth-box button{background:var(--accent);color:#fff;padding:13px;border:none;border-radius:12px;font-weight:700;cursor:pointer}
+.auth-box a{color:var(--accent);text-align:center;font-size:0.9rem}
+.dashboard{padding:30px 20px;max-width:1000px;margin:auto}
+.dash-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:25px}
+.dash-stat{background:var(--surface);padding:22px;border-radius:18px;box-shadow:0 4px 15px rgba(0,0,0,0.04);text-align:center}
+.booking-list{display:flex;flex-direction:column;gap:12px}
+.booking-item{background:var(--surface);padding:16px;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,0.04);display:flex;justify-content:space-between;align-items:center}
+@media(max-width:768px){
+  .hero h1{font-size:2rem}
+  .stats{grid-template-columns:1fr}
+  .dash-stats{grid-template-columns:1fr}
+}`
+  },
+  {
+    path: "js/firebase-config.js",
+    content: `import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth }       from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore }  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ⚠️ استبدل هذه القيم من Firebase Console → Project Settings
+const firebaseConfig = {
+  apiKey:            "YOUR_API_KEY",
+  authDomain:        "YOUR_PROJECT.firebaseapp.com",
+  projectId:         "YOUR_PROJECT_ID",
+  storageBucket:     "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId:             "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db   = getFirestore(app);`
+  },
+  {
+    path: "js/auth.js",
+    content: `import { auth, db } from "./firebase-config.js";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword,
+         signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { doc, setDoc, getDoc }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+export async function register(email, password, role, extra) {
+  const cred = await createUserWithEmailAndPassword(auth, email, password);
+  const uid  = cred.user.uid;
+  await setDoc(doc(db,"users",uid), { uid, email, role, createdAt: new Date(), ...extra });
+  if (role === "prof")
+    await setDoc(doc(db,"professors",uid), {
+      uid, name: extra.name||"", subjects:[], levels:[],
+      wilaya: extra.wilaya||"", price:0, bio:"", rating:0, reviews:0, available:true
+    });
+  return cred.user;
+}
+
+export async function login(email, password) {
+  const cred = await signInWithEmailAndPassword(auth, email, password);
+  const snap = await getDoc(doc(db,"users",cred.user.uid));
+  const data = snap.data();
+  location.href = data.role === "prof" ? "dashboard-prof.html" : "dashboard-eleve.html";
+}
+
+export async function logout() {
+  await signOut(auth);
+  location.href = "index.html";
+}
+
+export function watchAuth(cb) {
+  onAuthStateChanged(auth, async user => {
+    if (user) {
+      const snap = await getDoc(doc(db,"users",user.uid));
+      cb(user, snap.data());
+    } else { cb(null, null); }
+  });
+}`
+  },
+  {
+    path: "search.html",
+    content: `<!DOCTYPE html>...` // محتوى مختصر لأغراض العرض
+  },
+  {
+    path: "teacher.html",
+    content: `<!DOCTYPE html>...`
+  },
+  {
+    path: "dashboard-prof.html",
+    content: `<!DOCTYPE html>...`
+  },
+  {
+    path: "dashboard-eleve.html",
+    content: `<!DOCTYPE html>...`
+  }
+];
+
+// ======================= بناء الواجهة =======================
+const grid = document.getElementById('fileGrid');
+projectFiles.forEach((f, i) => {
+  const card = document.createElement('div');
+  card.className = 'file-card';
+  card.innerHTML = `<i class="fas fa-file-code"></i><span class="name">${f.path}</span>`;
+  card.onclick = () => showCode(i);
+  grid.appendChild(card);
+});
+
+let currentIndex = -1;
+function showCode(i) {
+  currentIndex = i;
+  const f = projectFiles[i];
+  document.getElementById('codeTitle').textContent = f.path;
+  document.getElementById('codeBox').textContent = f.content;
+  document.getElementById('codeSection').classList.add('active');
+  document.getElementById('codeSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function copyCode() {
+  if (currentIndex === -1) return;
+  navigator.clipboard.writeText(projectFiles[currentIndex].content).then(() => {
+    alert('✅ تم نسخ كود ' + projectFiles[currentIndex].path);
+  });
+}
+
+function showAll() {
+  if (projectFiles.length === 0) return;
+  showCode(0);
+}
+
+async function downloadAll() {
+  const zip = new JSZip();
+  projectFiles.forEach(f => {
+    zip.file(f.path, f.content);
+  });
+  const blob = await zip.generateAsync({ type: "blob" });
+  saveAs(blob, "ostadhi-platform.zip");
+}
+</script>
+
+</body>
+</html>
